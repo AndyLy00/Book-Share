@@ -36,7 +36,7 @@ This will be a platform where users will rent different books from each other.
 * Programing and Frameworks: Java, Node.js, Express, Spring
 * Database Management: Postgresql, Hibernate(ORM), Intellij Idea
 * Security: Spring Security, JWT, Hash function
-* Containerization: Docker
+* Containerization: Docker Compose
 * Cache: Redis
 * Testing : JUnit
 * Other: Postman, Lombok, other.
@@ -199,7 +199,31 @@ Response
 ]
 ```
 
-- ```api/books/{category}```
+- ```GET api/books/{category}```
+
+  Response:
+```json
+[
+  {
+    "id": 1,
+    "title": "Title",
+    "description": "Description",
+    "author": "Author",
+    "owner": "OwnerID",
+    "price": 99.99,
+    "category": ["Fantasy", "Drama"]
+  }
+]
+```
+
+- ```Websocket api/books/category```
+
+  Response:
+```json
+["Fantasy", "Drama"]
+```
+
+- ```Websocket api/books```
 
   Response:
 ```json
