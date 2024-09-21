@@ -21,7 +21,8 @@ This will be a platform where users will rent different books from each other.
 
 ## Service Boundaries:
 
-![image](https://github.com/user-attachments/assets/c2419e2e-5cba-4953-86d4-3fe21bd5a7ee)
+![image](https://github.com/user-attachments/assets/13c1eb26-39fc-4836-976f-464c0d215ae7)
+
 
 - User Microservice:
 
