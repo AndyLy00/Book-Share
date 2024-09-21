@@ -217,28 +217,13 @@ Response
 ]
 ```
 
-- ```Websocket api/books/category```
+- ```Websocket api/books/{categoryId}```
 
   Response:
 ```json
-["Fantasy", "Drama"]
-```
-
-- ```Websocket api/books```
-
-  Response:
-```json
-[
-  {
-    "id": 1,
-    "title": "Title",
-    "description": "Description",
-    "author": "Author",
-    "owner": "OwnerID",
-    "price": 99.99,
-    "category": ["Fantasy", "Drama"]
-  }
-]
+{
+"notification": "Message"
+}
 ```
 
 
