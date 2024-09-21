@@ -33,13 +33,13 @@ This will be a platform where users will rent different books from each other.
   Works with all information about books (Creating, Updating, Deleting and Showing).
 
 ## Technology Stack and Communication Patterns:
-* Programing and Frameworks: Java, Node.js, Express, Spring
-* Database Management: Postgresql, Hibernate(ORM), Intellij Idea
-* Security: Spring Security, JWT, Hash function
+* Programing and Frameworks: Java, Node.js, Express, Spring Boot, Eureka
+* Database Management: Postgresql, Intellij Idea
+* Security: JWT, Hash function
 * Containerization: Docker Compose
 * Cache: Redis
 * Testing : JUnit
-* Other: Postman, Lombok, other.
+* Other: Postman
 - **For Asynchronous Programming: WebSockets**
 - **For Synchronous Programming: REST and gRPC**
 
@@ -242,4 +242,4 @@ Response
 
 
 ## Deployment and Scaling:
-Fot this step I choose Docker. Docker helps developers build, share, run, and verify applications anywhere — without tedious environment configuration or management. Deployment and scaling are important because they make sure an app is available and works well for users. Deployment gets the app up and running, while scaling makes sure it can handle more users as it grows, keeping everything fast and reliable.
+Fot this step I choose Docker. Docker helps developers build, share, run, and verify applications anywhere — without tedious environment configuration or management. Deployment and scaling are important because they make sure an app is available and works well for users. Deployment gets the app up and running, while scaling makes sure it can handle more users as it grows, keeping everything fast and reliable. Docker Compose is a tool for defining and running multi-container Docker applications. It allows you to manage multiple Docker containers as a single application by using a YAML file to define the services, networks, and volumes your app will need. With a single command (docker-compose up), Docker Compose can build images, create and start containers, and configure the networking between them.
