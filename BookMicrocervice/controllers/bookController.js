@@ -57,35 +57,6 @@ export const getTags = async (req, res) => {
     }
 }
 
-// export const getOne = async (req, res) => {
-//     try {
-//         const postId = req.params.id;
-//         const doc = await BookModel.findOneAndUpdate(
-//             {
-//                 _id: postId,
-//             },
-//             {
-//                 $inc: { viewsCount: 1 },
-//             },
-//             {
-//                 returnDocument: "after",
-//             }
-//         )
-//         if (!doc) {
-//             return res.status(404).json({
-//                 message: "Book was not found",
-//             });
-//         }
-//         res.json(doc);
-//
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json({
-//             message: 'Error: Something went wrong'
-//         });
-//     }
-// }
-
 export const getOne = async (req, res) => {
     try {
         const bookId = req.params.id;
@@ -158,10 +129,10 @@ export const remove = async (req, res) => {
 
 export const update = async (req, res) => {
     try {
-        const postId = req.params.id;
+        const bookId = req.params.id;
         const doc = await BookModel.updateOne(
             {
-                _id: postId,
+                _id: bookId,
             }, {
             title: req.body.title,
             description: req.body.description,
@@ -172,6 +143,61 @@ export const update = async (req, res) => {
         if (!doc) {
             return res.status(404).json({
                 message: "Book was not found",
+            });
+        }
+        res.json({
+            success: true,
+        });
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Error: Something went wrong'
+        });
+    }
+}
+
+export const checkAvailability = async (req, res) => {
+    try {
+        const bookId = req.params.id;
+        const book = await BookModel.findById(bookId)
+        if (!book) {
+            return res.status(404).json({
+                message: "Book was not found",
+            });
+        }
+        if (book.state === "available") {
+            res.status(200).json({
+                message: 'Book is available',
+            });
+        } else {
+            console.log(err);
+            res.status(500).json({
+                message: 'Book is not available',
+            });
+        }
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Error: Something went wrong',
+        });
+    }
+}
+
+export const changeStatus = async (req, res) => {
+    try {
+        const bookId = req.params.id;
+        const doc = await BookModel.updateOne(
+            {
+                _id: bookId,
+            }, {
+                state: "not available",
+            }
+        )
+        if (!doc) {
+            return res.status(404).json({
+                message: "Status not changed",
             });
         }
         res.json({

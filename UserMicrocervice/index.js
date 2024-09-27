@@ -24,7 +24,7 @@ app.post('/auth/register', registerValidation, handleValidationErrors, UserContr
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
-app.post('/rent', checkAuth, UserController.rent);
+app.post('/rent/:id', checkAuth, UserController.rent);
 
 // Start the server
 const PORT = process.env.PORT || 3001;

@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import UserModel from "../models/User.js";
+import axios from "axios";
 
 // All the functions for Users
 
@@ -119,15 +120,46 @@ export const getMe = async (req, res) => {
 
 export const rent = async (req, res) => {
     try{
-        const user = await UserModel.findById(req.userId)
-        if(!user) {
-            return res.status(404).json({
-                message: 'Such an user does not exist'
+        const rentId = req.params.id;
+        const token = req.headers['authorization'];
+
+        const response = await axios.post(`http://localhost:3000/checkAvailability/${rentId}`, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                }
+            }
+        )
+        if (response.status === 200) {
+            await UserModel.findByIdAndUpdate(
+                req.userId,
+                { $addToSet: { booksRented: req.params.id } },
+                { new: true }
+            );
+            const bookRent = await axios.post(`http://localhost:3000/changeStatus/${rentId}`, {}, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    }
+                }
+            )
+            if (bookRent.status === 200) {
+                res.json({
+                    message: "Book is rented"
+                });
+            } else {
+                console.log(err);
+                res.status(500).json({
+                    message: 'This book is available, but something went wrong'
+                });
+            }
+
+        } else {
+            console.log(err);
+            res.status(500).json({
+                message: 'This book is not available'
             });
         }
-        const { passwordHash, ...userData } = user._doc;
-
-        res.json(userData);
 
     } catch (err) {
         console.log(err);

@@ -28,7 +28,8 @@ app.post('/books', checkAuth, bookValidation, handleValidationErrors, BookContro
 app.delete('/books/:id', checkAuth, BookController.remove);
 app.patch('/books/:id', checkAuth, bookValidation, handleValidationErrors, BookController.update);
 
-app.post('/rent', checkAuth, BookController.create);
+app.post('/checkAvailability/:id', checkAuth, BookController.checkAvailability);
+app.post('/changeStatus/:id', checkAuth, BookController.changeStatus);
 
 // Start the server
 const PORT = process.env.PORT || 3000;
