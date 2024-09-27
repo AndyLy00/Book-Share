@@ -171,7 +171,6 @@ export const checkAvailability = async (req, res) => {
                 message: 'Book is available',
             });
         } else {
-            console.log(err);
             res.status(500).json({
                 message: 'Book is not available',
             });
