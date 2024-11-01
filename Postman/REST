@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "811f05be-de0d-43d6-8bfe-6d0d00ed8f51",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24902271"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3001/auth/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"andyly@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"nickname\": \"AndyLy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/auth/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"andyly@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/books",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzFjZTMxNGNhZmNjOTRmZTQ4YWZkMTAiLCJpYXQiOjE3Mjk5NDY0MzAsImV4cCI6MTczMjUzODQzMH0.neUYdNl6lSKjTw7pls_fZqwd0DVVGDPPHIi9Y1BEgC0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"andyly@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/books",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzFjZTMxNGNhZmNjOTRmZTQ4YWZkMTAiLCJpYXQiOjE3Mjk5NDY0MzAsImV4cCI6MTczMjUzODQzMH0.neUYdNl6lSKjTw7pls_fZqwd0DVVGDPPHIi9Y1BEgC0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Hobbit New\",\r\n    \"author\": \"Tolkien\",\r\n    \"description\": \"This is a description\",\r\n    \"price\": 50,\r\n    \"owner\": \"66f6aa3713faf709ace1ac22\",\r\n    \"state\": \"available\",\r\n    \"category\": [\"66f6bab038776d2c65fb1c3a\", \"66f6bab038776d2c65fb1c3b\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/auth/rent/671ce64901a4cf942de3783e",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzFjZTMxNGNhZmNjOTRmZTQ4YWZkMTAiLCJpYXQiOjE3Mjk5NDY0MzAsImV4cCI6MTczMjUzODQzMH0.neUYdNl6lSKjTw7pls_fZqwd0DVVGDPPHIi9Y1BEgC0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth/rent/671ce64901a4cf942de3783e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth",
+						"rent",
+						"671ce64901a4cf942de3783e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/books/checkAvailability/671ce64901a4cf942de3783e",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzFjZTMxNGNhZmNjOTRmZTQ4YWZkMTAiLCJpYXQiOjE3Mjk5NDY0MzAsImV4cCI6MTczMjUzODQzMH0.neUYdNl6lSKjTw7pls_fZqwd0DVVGDPPHIi9Y1BEgC0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/books/checkAvailability/671ce64901a4cf942de3783e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"checkAvailability",
+						"671ce64901a4cf942de3783e"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

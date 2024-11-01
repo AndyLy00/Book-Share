@@ -34,7 +34,7 @@ export const create = async (req, res) => {
 
 export const getAll = async (req, res) => {
     try {
-        const books = await BookModel.find().populate('user').exec();
+        const books = await BookModel.find().exec();
         res.json(books);
     } catch (err) {
         console.log(err);
@@ -178,6 +178,7 @@ export const checkAvailability = async (req, res) => {
 
     } catch (err) {
         console.log(err);
+        console.log("book error");
         res.status(500).json({
             message: 'Error: Something went wrong',
         });

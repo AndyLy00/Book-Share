@@ -123,15 +123,14 @@ export const rent = async (req, res) => {
         const rentId = req.params.id;
         const token = req.headers['authorization'];
 
-        // Call the checkAvailability endpoint
-        const response = await axios.post(`http://localhost:3000/checkAvailability/${rentId}`, {}, {
+        const response = await axios.post(`http://localhost:3000/books/checkAvailability/${rentId}`, {}, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token
             }
         });
 
-        // If the book is available, proceed to rent
+
         if (response.status === 200) {
             await UserModel.findByIdAndUpdate(
                 req.userId,
@@ -139,15 +138,13 @@ export const rent = async (req, res) => {
                 { new: true }
             );
 
-            // Call to change the book status after renting
-            const bookRent = await axios.post(`http://localhost:3000/changeStatus/${rentId}`, {}, {
+            const bookRent = await axios.post(`http://localhost:3000/books/changeStatus/${rentId}`, {}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': token
                 }
             });
 
-            // Handle the changeStatus response
             if (bookRent.status === 200) {
                 return res.json({
                     message: "Book is rented"
@@ -158,21 +155,17 @@ export const rent = async (req, res) => {
                 });
             }
         } else {
-            // If checkAvailability returns a non-200 status
             return res.status(response.status).json({
                 message: response.data.message || 'This book is not available'
             });
         }
 
     } catch (err) {
-        // Handle axios-specific errors (like non-200 responses or network issues)
         if (err.response) {
-            // If the error is from the API response
             return res.status(err.response.status).json({
                 message: err.response.data.message || 'An error occurred while checking the book availability'
             });
         } else {
-            // Handle other kinds of errors (network errors, etc.)
             console.error(err);
             return res.status(500).json({
                 message: 'Something went wrong while renting the book'
