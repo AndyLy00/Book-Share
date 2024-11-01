@@ -1,6 +1,18 @@
 # Book-Share
 This will be a platform where users will rent different books from each other.
 
+## How to run new app?
+
+docker-compose -f docker-compose.yml up --build  This command run docker-compose.yml file that dockerize gateway, service-discovery and my 2 microcervices with their DB.
+
+## New Diagram:
+
+![Untitled Diagram-Page-2](https://github.com/user-attachments/assets/f8076065-c949-4a87-a13d-2d368d12b03d)
+
+## My new technologies
+
+In my project, I’ll implement a robust microservices architecture that ensures high availability, reliability, and efficient data management. To maintain Service High Availability, I’ll use load balancers and failover strategies, along with a Circuit Breaker to prevent overloading and quickly detect failing services. For caching, Consistent Hashing will ensure balanced data distribution, and Cache High Availability will provide redundancy so data access remains fast and uninterrupted. To handle complex, distributed processes, I’ll rely on Two-Phase Commits for transactional consistency and Long-Running Saga Transactions for complex workflows. Database Replication with Failover will add redundancy, allowing the system to switch seamlessly to a backup in case of database issues. I’ll use the ELK Stack (Elasticsearch, Logstash, and Kibana) for centralized logging and analysis, making it easy to detect performance bottlenecks or errors. Finally, a Data Warehouse will store historical data, enabling detailed analysis for insights and decision-making. Together, these technologies create a resilient, scalable infrastructure capable of supporting high-performance applications.
+
 ## Why Microservice Architecture is a good fit for my Book-Share Platform?
 
 1. **Complexity and Modularity**: Microservices allow you to break down the application into smaller, independent services that can be developed, deployed, and maintained separately. For example, you can have microservices for user authentication, book listings, payments, reviews, and recommendation systems.
