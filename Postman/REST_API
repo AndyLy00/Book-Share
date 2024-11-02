@@ -84,7 +84,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"andyly@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -218,6 +218,90 @@
 						"books",
 						"checkAvailability",
 						"671ce64901a4cf942de3783e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/auth/status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzFjZTMxNGNhZmNjOTRmZTQ4YWZkMTAiLCJpYXQiOjE3Mjk5NDY0MzAsImV4cCI6MTczMjUzODQzMH0.neUYdNl6lSKjTw7pls_fZqwd0DVVGDPPHIi9Y1BEgC0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/books/status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzFjZTMxNGNhZmNjOTRmZTQ4YWZkMTAiLCJpYXQiOjE3Mjk5NDY0MzAsImV4cCI6MTczMjUzODQzMH0.neUYdNl6lSKjTw7pls_fZqwd0DVVGDPPHIi9Y1BEgC0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/books/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"books",
+						"status"
 					]
 				}
 			},
