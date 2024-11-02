@@ -7,7 +7,7 @@ docker-compose -f docker-compose.yml up --build  This command run docker-compose
 
 ## New Diagram:
 
-![Untitled Diagram-Page-2](https://github.com/user-attachments/assets/f8076065-c949-4a87-a13d-2d368d12b03d)
+![diagram](https://github.com/user-attachments/assets/3213bdcc-9957-4cba-90b6-15749572b7af)
 
 ## My new technologies
 
