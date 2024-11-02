@@ -5,6 +5,12 @@ This will be a platform where users will rent different books from each other.
 
 docker-compose -f docker-compose.yml up --build  This command run docker-compose.yml file that dockerize gateway, service-discovery and my 2 microcervices with their DB.
 
+1. Run docker-compose -f docker-compose.yml up --build  This command run docker-compose.yml file that dockerize gateway, service-discovery and my 2 microcervices with their DB.
+2. Test Endpoints with Status Endpoint Get: http://localhost:3000/books/status and http://localhost:3001/auth/status
+3. First endpoint for user creation: http://localhost:3001/auth/register (Copy token and use it in all next requests, Copy new user id)
+4. Second endpoint for book creation: http://localhost:3000/books (Change owner vatue to user id that you obtained in step 3, Copy new book id)
+5. Third endpoint for checking if book is available and rent it: http://localhost:3001/auth/rent/:bookId (Use book id that you obtained at step 4)
+
 ## New Diagram:
 
 ![diagram](https://github.com/user-attachments/assets/3213bdcc-9957-4cba-90b6-15749572b7af)
