@@ -1,0 +1,158 @@
+version: '3.9'
+
+services:
+  eureka-server:
+    image: openjdk:21-jdk
+    container_name: eureka-server
+    ports:
+      - "8008:8008"
+    networks:
+      - app-network
+    environment:
+      SPRING_APPLICATION_NAME: ServiceDiscovery
+      SERVER_PORT: 8008
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
+      EUREKA_CLIENT_FETCH_REGISTRY: "false"
+      EUREKA_INSTANCE_HOSTNAME: localhost
+    volumes:
+      - ./ServiceDiscovery/target/ServiceDiscovery-0.0.1-SNAPSHOT.jar:/app/app.jar
+    command: [ "java", "-jar", "/app/app.jar" ]
+
+  gateway:
+    image: openjdk:21-jdk
+    container_name: gateway
+    ports:
+      - "9898:9898"
+    networks:
+      - app-network
+    environment:
+      SPRING_APPLICATION_NAME: gateway
+      SERVER_PORT: 9898
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8008/eureka
+    volumes:
+      - ./Gateway/target/Gateway-0.0.1-SNAPSHOT.jar:/app/app.jar
+    command: [ "java", "-jar", "/app/app.jar" ]
+
+  book-microservice:
+    image: node:18  # Replace with your desired Node.js version
+    container_name: book-microservice
+#    deploy:
+#      replicas: 3
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    volumes:
+      - ./BookMicrocervice:/app
+    command: npm start  # Adjust this to the start command for your Node.js app
+    depends_on:
+      - bookdb
+      - redis
+      - eureka-server
+    environment:
+      - MONGO_URI=mongodb://bookdb:27017/BookServiceBooks  # Replace with your DB name
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+  user-microservice:
+    image: node:18  # Replace with your desired Node.js version
+    container_name: user-microservice
+#    deploy:
+#      replicas: 3
+    working_dir: /app
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+    volumes:
+      - ./UserMicrocervice:/app
+    command: npm start  # Adjust this to the start command for your Node.js app
+    depends_on:
+      - userdb
+      - eureka-server
+    environment:
+      - MONGO_URI=mongodb://userdb:27017/BookServiceBooks  # Replace with your DB name
+
+  bookdb:
+    image: mongo:6  # Replace with your desired MongoDB version
+    container_name: bookdb
+    ports:
+      - "27018:27017"
+    networks:
+      - app-network
+    volumes:
+      - bookdb-data:/data/db
+
+  userdb:
+    image: mongo:6  # Replace with your desired MongoDB version
+    container_name: userdb
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    volumes:
+      - userdb-data:/data/db
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.1
+#    container_name: elasticsearch
+#    environment:
+#      - discovery.type=single-node
+#      - ELASTIC_PASSWORD=password
+#    ports:
+#      - "9200:9200"
+#    networks:
+#      - app-network
+#    volumes:
+#      - esdata:/usr/share/elasticsearch/data
+#
+#  logstash:
+#    image: docker.elastic.co/logstash/logstash:8.10.1
+#    container_name: logstash
+#    environment:
+#      - LS_JAVA_OPTS=-Xmx512m -Xms512m
+#    ports:
+#      - "5044:5044"
+#    networks:
+#      - app-network
+#    volumes:
+#      - ./logstash/config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+#    depends_on:
+#      - elasticsearch
+#
+#  kibana:
+#    image: docker.elastic.co/kibana/kibana:8.10.1
+#    container_name: kibana
+#    ports:
+#      - "5601:5601"
+#    networks:
+#      - app-network
+#    environment:
+#      - ELASTICSEARCH_URL=http://elasticsearch:9200
+#    depends_on:
+#      - elasticsearch
+
+volumes:
+  bookdb-data:
+  userdb-data:
+  redis-data:
+#  esdata:
+
+networks:
+  app-network:
+    driver: bridge

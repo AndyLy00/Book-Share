@@ -7,22 +7,24 @@ import cors from 'cors';
 import timeout from "connect-timeout";
 import rateLimit from "express-rate-limit";
 import {Eureka} from "eureka-js-client";
+import {createServer} from "http";
 
 const app = express();
+const server = createServer(app);
 
 const client = new Eureka({
     instance: {
-        instanceId: `auth:${Math.random().toString(36).substr(2, 16)}`,
-        app: 'auth',
-        hostName: 'localhost',
-        ipAddr: '127.0.0.1',
+        instanceId: `user-microservice:${Math.random().toString(36).substr(2, 16)}`,
+        app: 'USER-MICROCERVICE',
+        hostName: 'user-microservice',
+        ipAddr: 'user-microservice',
         port: {
             '$': 3001,
             '@enabled': 'true',
         },
-        vipAddress: 'auth',
-        homePageUrl: 'http://localhost:3001/',
-        statusPageUrl: 'http://localhost:3001/status',
+        vipAddress: 'USER-MICROCERVICE',
+        homePageUrl: 'http://localhost:3001/auth',
+        statusPageUrl: 'http://localhost:3001/auth/status',
         register: 'http://localhost:3001/auth/register',
         login: 'http://localhost:3001/auth/login',
         myInfo: 'http://localhost:3001/auth/me',
@@ -33,7 +35,7 @@ const client = new Eureka({
         },
     },
     eureka: {
-        host: 'localhost',
+        host: 'eureka-server',
         port: 8008,
         servicePath: '/eureka/apps/'
     }
@@ -56,9 +58,9 @@ app.use(limiter);
 
 app.use(express.json());
 app.use(cors());
-app.use(timeout('1s'));
+app.use(timeout('160s'));
 
-mongoose.connect('mongodb://localhost:27017/BookServiceUsers').then(() => {
+mongoose.connect('mongodb://userdb:27017/BookServiceBooks').then(() => {
     console.log("DB ok");
 }).catch((err) => console.log('DB error', err))
 
@@ -73,7 +75,7 @@ app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.post('/auth/rent/:id', checkAuth, UserController.rent);
 
-app.get('/status', (req, res) => {
+app.get('/auth/status', (req, res) => {
     res.json({
         status: 'OK',
         uptime: process.uptime(),
@@ -83,6 +85,10 @@ app.get('/status', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+// server.listen(0, () => {
+//     const address = server.address();
+//     console.log(`Server is running on port ${address.port}`);
+// });

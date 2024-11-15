@@ -2,13 +2,15 @@ import BookModel from "../models/Book.js"
 import redis from "redis";
 
 
-const redisClient = redis.createClient({
-    socket: {
-        host: 'localhost',
-        port: 6379,
-    },
-});
-redisClient.connect().catch(console.error);
+// const redisClient = redis.createClient({
+//     socket: {
+//         host: 'redis',
+//         port: 6379,
+//     },
+// });
+// redisClient.connect()
+//     .then(() => console.log("Connected to Redis"))
+//     .catch(console.error);
 
 export const create = async (req, res) => {
     try {
@@ -61,15 +63,13 @@ export const getOne = async (req, res) => {
     try {
         const bookId = req.params.id;
 
-        // Try to get the book from Redis cache
-        const cachedBook = await redisClient.get(`book:${bookId}`);
-        if (cachedBook) {
-            console.log("book from redis");
-            // If book is found in cache, parse the JSON and return it
-            return res.json(JSON.parse(cachedBook));
-        }
+        // const cachedBook = await redisClient.get(`book:${bookId}`);
+        // if (cachedBook) {
+        //     console.log("book from redis");
+        //
+        //     return res.json(JSON.parse(cachedBook));
+        // }
 
-        // If book is not in cache, fetch it from the database
         const doc = await BookModel.findOneAndUpdate(
             {
                 _id: bookId,
@@ -88,9 +88,8 @@ export const getOne = async (req, res) => {
             });
         }
 
-        await redisClient.set(`book:${bookId}`, JSON.stringify(doc), { EX: 3600 }); // EX sets expiration in seconds
+        // await redisClient.set(`book:${bookId}`, JSON.stringify(doc), { EX: 3600 });
 
-        // Send the result to the client
         res.json(doc);
 
     } catch (err) {
