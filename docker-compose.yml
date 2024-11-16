@@ -3,7 +3,7 @@ version: '3.9'
 services:
   eureka-server:
     image: openjdk:21-jdk
-    container_name: eureka-server
+#    container_name: eureka-server
     ports:
       - "8008:8008"
     networks:
@@ -20,7 +20,7 @@ services:
 
   gateway:
     image: openjdk:21-jdk
-    container_name: gateway
+#    container_name: gateway
     ports:
       - "9898:9898"
     networks:
@@ -35,7 +35,7 @@ services:
 
   book-microservice:
     image: node:18  # Replace with your desired Node.js version
-    container_name: book-microservice
+#    container_name: book-microservice
 #    deploy:
 #      replicas: 3
     working_dir: /app
@@ -57,12 +57,12 @@ services:
 
   user-microservice:
     image: node:18  # Replace with your desired Node.js version
-    container_name: user-microservice
-#    deploy:
-#      replicas: 3
+#    container_name: user-microservice
+    deploy:
+      replicas: 3
     working_dir: /app
     ports:
-      - "3001:3001"
+      - "3001"
     networks:
       - app-network
     volumes:
@@ -108,50 +108,10 @@ services:
       timeout: 5s
       retries: 5
 
-#  elasticsearch:
-#    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.1
-#    container_name: elasticsearch
-#    environment:
-#      - discovery.type=single-node
-#      - ELASTIC_PASSWORD=password
-#    ports:
-#      - "9200:9200"
-#    networks:
-#      - app-network
-#    volumes:
-#      - esdata:/usr/share/elasticsearch/data
-#
-#  logstash:
-#    image: docker.elastic.co/logstash/logstash:8.10.1
-#    container_name: logstash
-#    environment:
-#      - LS_JAVA_OPTS=-Xmx512m -Xms512m
-#    ports:
-#      - "5044:5044"
-#    networks:
-#      - app-network
-#    volumes:
-#      - ./logstash/config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-#    depends_on:
-#      - elasticsearch
-#
-#  kibana:
-#    image: docker.elastic.co/kibana/kibana:8.10.1
-#    container_name: kibana
-#    ports:
-#      - "5601:5601"
-#    networks:
-#      - app-network
-#    environment:
-#      - ELASTICSEARCH_URL=http://elasticsearch:9200
-#    depends_on:
-#      - elasticsearch
-
 volumes:
   bookdb-data:
   userdb-data:
   redis-data:
-#  esdata:
 
 networks:
   app-network:

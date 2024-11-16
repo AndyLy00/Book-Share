@@ -45,16 +45,16 @@ client.start(error => {
     console.log('Eureka client started with error:', error);
 });
 
-const limiter = rateLimit({
-    windowMs: 5 * 60 * 1000,
-    max: 5,
-    message: 'Too many requests from this IP, please try again later.',
-    standardHeaders: true,
-    legacyHeaders: false,
-});
-
-
-app.use(limiter);
+// const limiter = rateLimit({
+//     windowMs: 5 * 60 * 1000,
+//     max: 5,
+//     message: 'Too many requests from this IP, please try again later.',
+//     standardHeaders: true,
+//     legacyHeaders: false,
+// });
+//
+//
+// app.use(limiter);
 
 app.use(express.json());
 app.use(cors());
@@ -76,6 +76,7 @@ app.get('/auth/me', checkAuth, UserController.getMe);
 app.post('/auth/rent/:id', checkAuth, UserController.rent);
 
 app.get('/auth/status', (req, res) => {
+    console.log("User");
     res.json({
         status: 'OK',
         uptime: process.uptime(),
